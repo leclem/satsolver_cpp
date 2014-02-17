@@ -1,5 +1,5 @@
     ===== SAT Solver =====
-
+Made by Clément Moutet and Guillaume Cordonnier
 
 1 ) How to use the program
 ---------------------------
