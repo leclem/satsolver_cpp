@@ -21,7 +21,7 @@ With one of these options:
  --rand        DPLL with random acces  
  --MOMS        MOMS heuristic  
  --DLIS        DLIS heuristic  
- --hepl        show this help  
+ --help        show this help  
  --hist        open a prompt to parse history.slh (learned clauses)  
 And the following flags:  
 -w      use the watched literals  
