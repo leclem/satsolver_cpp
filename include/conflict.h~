@@ -1,0 +1,85 @@
+#ifndef CCONFLICT_H
+#define CCONFLICT_H
+#include <string>
+#include <iostream>
+#include <sstream>
+#include "choice.h"
+
+template <SATheuristic _ALG, LitChoice _WAT, ClauseChoice _CL>
+class CConflict
+{
+
+public:
+    CConflict();
+    virtual ~CConflict();
+    static void activate(){
+        static_conflict_activated=true;
+    }
+    static void desactivate(){
+        static_conflict_activated=false;
+    }
+    void conflictManager();
+protected:
+private:
+    static bool static_conflict_activated;
+    int m_conflictsToJump;
+};
+
+///============================= IMPLEMENTATION ===========================================
+template <SATheuristic _ALG, LitChoice _WAT, ClauseChoice _CL>
+CConflict<_ALG,_WAT,_CL>::CConflict()
+{
+    //ctor
+    m_conflictsToJump = 0;
+}
+
+template <SATheuristic _ALG, LitChoice _WAT, ClauseChoice _CL>
+CConflict<_ALG,_WAT,_CL>::~CConflict()
+{
+    //dtor
+}
+
+
+template <SATheuristic _ALG, LitChoice _WAT, ClauseChoice _CL>
+bool CConflict<_ALG,_WAT,_CL>::static_conflict_activated = true;
+
+
+template <SATheuristic _ALG, LitChoice _WAT, ClauseChoice _CL>
+void CConflict<_ALG,_WAT,_CL>::conflictManager(CSat<_ALG,_WAT,_CL> * sat){
+    bool finish = true;
+    do {
+        if (m_conflictsToJump > 0){
+            m_conflictsToJump--;
+        }
+        else{
+            std::cout << "Conflit détecté \n";
+            std::string command;
+            std::getline( std::cin, command );
+            if (command[0] == 'g'){
+                // génération du graphe des conflits
+            }
+            else if (command[0] == 'r'){
+                //afficher la preuve par résolution qui aboutit à la clause qui est ajoutée lors du conflit courrant
+            }
+            else if (command[0] == 's'){
+                //Pour continuer et afficher n conflits plus loin
+                command.erase(0,2);
+                std::stringstream s(command);
+                s >> m_conflictsToJump;
+            }
+            else if (command[0] == 't'){
+                //pour terminer l'execution sans s'arrêter
+                desactivate();
+            }
+            else if (command[0] == 'c'){
+                //continuer jusqu'au prochain conflit
+            }
+            else{
+                std::cerr << "Commande non reconnue. \n";
+                finish = false;
+            }
+        }
+    } while (!finish);
+}
+
+#endif // CCONFLICT_H
