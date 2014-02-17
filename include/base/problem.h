@@ -131,9 +131,9 @@ protected:
 };
 
 // error strings
-const std::string err_header = "En tete invalide";
-const std::string err_h_too_short = "En tete incomplet";
-const std::string err_too_short = "Fichier incomplet";
+const std::string err_header = "Invalid header";
+const std::string err_h_too_short = "Incomplete header";
+const std::string err_too_short = "Incomplete file";
 
 
 // ========================================================================================================
@@ -437,12 +437,12 @@ std::istream& operator >> (std::istream& in, CProblem<_ALG, _WAT, _CL>& prob)
     }
     if(!isInt(cur, V))
     {
-        prob.m_error = "Le 3eme mot de l'en-tete doit etre un entier represenatant le nombre de variables";
+        prob.m_error = "The third world of the header should be an integer representing the number of variables";
         return in;
     }
     if (V<=0)
     {
-        prob.m_error = "Le nombre de variables doit être strictement postif";
+        prob.m_error = "The number of variables sould be stricly positive";
         return in;
     }
 
@@ -459,12 +459,12 @@ std::istream& operator >> (std::istream& in, CProblem<_ALG, _WAT, _CL>& prob)
     }
     if (!isInt(cur, C))
     {
-        prob.m_error = "Le 4eme mot de l'en-tete doit etre un entier represenatant le nombre de clauses";
+        prob.m_error = "The fourth word of the header should be an integer representing the number of clauses";
         return in;
     }
     if (C<=0)
     {
-        prob.m_error = "Le nombre de clauses doit être strictement postif";
+        prob.m_error = "The number of clauses should be strictly positive";
         return in;
     }
 
@@ -492,14 +492,14 @@ std::istream& operator >> (std::istream& in, CProblem<_ALG, _WAT, _CL>& prob)
 
             if (!isInt(cur, i))
             {
-                prob.m_error = "Une des variables n'est pas un entier";
+                prob.m_error = "One of the variable is not an integer";
                 return in;
             }
             while(i)
             {
                 if(i<-V || i>V)
                 {
-                    prob.m_error = "Une variable est hors limite";
+                    prob.m_error = "One of the variables is out of range";
                     return in;
                 }
                 if (variables[std::abs(i)] == voidVar)
@@ -517,7 +517,7 @@ std::istream& operator >> (std::istream& in, CProblem<_ALG, _WAT, _CL>& prob)
 
                 if (!isInt(cur, i))
                 {
-                    prob.m_error = "Une des variables n'est pas un entier";
+                    prob.m_error = "One of the variable is not an integer";
                     return in;
                 }
             }
